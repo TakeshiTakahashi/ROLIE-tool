@@ -1,9 +1,18 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  content: MyText
-  collection_id: 
+entry_1:
+  id: 1
+  collection: public_incidents
+  content:
+    <?xml version="1.0" encoding="UTF-8"?>
+    <iodef:IODEF-Document lang="en" xmlns:iodef="urn:ietf:params:xml:ns:iodef-1.0">
+    </iodef:IODEF-Document>
 
-two:
-  content: MyText
-  collection_id: 
+entry_2:
+  id: 2
+  collection: public_incidents
+  content:
+    <?xml version="1.0" encoding="UTF-8"?>
+    <iodef:IODEF-Document lang="en" xmlns:iodef="urn:ietf:params:xml:ns:iodef-1.0">
+    </iodef:IODEF-Document>
+

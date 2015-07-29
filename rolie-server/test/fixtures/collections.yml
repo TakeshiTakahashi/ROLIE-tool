@@ -1,9 +1,13 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  title: MyString
-  workspace_id: 
+public_incidents:
+  title: public_incidents
+  workspace: public
 
-two:
-  title: MyString
-  workspace_id: 
+public_indicators:
+  title: public_indicators
+  workspace: public
+
+private_incidents:
+  title: private_incidents
+  workspace: private

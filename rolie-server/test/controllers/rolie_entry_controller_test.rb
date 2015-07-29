@@ -2,33 +2,33 @@ require 'test_helper'
 
 class RolieEntryControllerTest < ActionController::TestCase
   test "should get index" do
-    get :index
+    get :index, :workspace => 'public', :collection => 'incidents'
     assert_response :success
   end
 
-  test "should get get" do
-    get :get
+  test "should get" do
+    get :get, :workspace => 'public', :collection => 'incidents', :id => 1
     assert_response :success
   end
 
-  test "should get put" do
-    get :put
+  test "should put" do
+    put :put, :workspace => 'public', :collection => 'incidents', :id => 1
     assert_response :success
   end
 
-  test "should get post" do
-    get :post
+  test "should post" do
+    post :post, :workspace => 'public', :collection => 'incidents'
     assert_response :success
   end
 
-  test "should get delete" do
-    get :delete
+  test "should delete" do
+    delete :delete, :workspace => 'public', :collection => 'incidents', :id => 1
     assert_response :success
   end
 
-  test "should get search" do
-    get :search
-    assert_response :success
-  end
+  #test "should get search" do
+  #  get :search
+  #  assert_response :success
+  #end
 
 end

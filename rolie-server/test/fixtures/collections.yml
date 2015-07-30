@@ -2,12 +2,15 @@
 
 public_incidents:
   title: public_incidents
+  path: incidents
   workspace: public
 
 public_indicators:
   title: public_indicators
+  path: indicators
   workspace: public
 
 private_incidents:
   title: private_incidents
+  path: incidents
   workspace: private

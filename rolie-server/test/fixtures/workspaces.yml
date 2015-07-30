@@ -2,6 +2,8 @@
 
 public:
   title: public
+  path: public
 
 private:
   title: private
+  path: private

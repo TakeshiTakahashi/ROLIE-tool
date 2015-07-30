@@ -11,13 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150727133635) do
+ActiveRecord::Schema.define(version: 20150730094228) do
 
   create_table "collections", force: :cascade do |t|
     t.string   "title"
     t.integer  "workspace_id"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
+    t.string   "path"
   end
 
   add_index "collections", ["workspace_id"], name: "index_collections_on_workspace_id"
@@ -35,6 +36,7 @@ ActiveRecord::Schema.define(version: 20150727133635) do
     t.string   "title"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "path"
   end
 
   add_index "workspaces", ["title"], name: "index_workspaces_on_title", unique: true

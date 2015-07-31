@@ -9,20 +9,21 @@ class RolieEntryController < ApplicationController
                'xsi:schemaLocation' => 'http://www.w3.org/2005/Atom file:/C:/schemas/atom.xsd urn:ietf:params:xml:ns:iodef-1.0 file:/C:/schemas/iodef-1.0.xsd'
                ) {
         xml.generator "ROLIE prototype server"
-        xml.id_ "http://www.example.org/ TODO: stub"
+        xml.id_(url_for)
         xml.title('type' => 'text') {
           xml.text collection.title
         }
-        xml.updated # TODO
+        xml.updated(DateTime.now.rfc3339)
         xml.author # TODO
-        xml.link
+        xml.link('href' => url_for, 'rel' => 'self')
 
         collection.entries.find_each {|entry|
           xml.entry {
             xml.id_ "TODO"
             xml.title "TODO"
-            xml.link
-            xml.published "TODO"
+            xml.link('href' => url_for(:action => :get, :id => entry.id), 'rel' => 'self')
+            xml.link('href' => url_for(:action => :get, :id => entry.id), 'rel' => 'alternate')
+            xml.published(entry.published.rfc3339)
             xml.updated "TODO"
             xml.category
             xml.summary "TODO"

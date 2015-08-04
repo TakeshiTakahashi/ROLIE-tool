@@ -5,6 +5,11 @@ class Entry < ActiveRecord::Base
     @iodef ||= Nokogiri::XML(self.content)
   end
 
+  def atomid
+    id = iodef.xpath('/iodef:IODEF-Document/iodef:Incident/iodef:IncidentID', 'iodef' => 'urn:ietf:params:xml:ns:iodef-1.0')[0]
+    "#{id['name']}/#{id.child}"
+  end
+
   def published
     reportTimes = iodef.xpath('/iodef:IODEF-Document/iodef:Incident/iodef:ReportTime/text()', 'iodef' => 'urn:ietf:params:xml:ns:iodef-1.0')
     parsed = reportTimes.map {|s|

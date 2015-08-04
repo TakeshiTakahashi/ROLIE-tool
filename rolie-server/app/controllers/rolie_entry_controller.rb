@@ -24,7 +24,7 @@ class RolieEntryController < ApplicationController
             xml.link('href' => url_for(:action => :get, :id => entry.id), 'rel' => 'self')
             xml.link('href' => url_for(:action => :get, :id => entry.id), 'rel' => 'alternate')
             xml.published(entry.published.rfc3339)
-            xml.updated "TODO"
+            xml.updated(entry.updated_at.to_datetime.rfc3339)
             xml.category
             xml.summary "TODO"
           }

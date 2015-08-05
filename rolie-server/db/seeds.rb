@@ -17,7 +17,7 @@ c2 = Collection.create(title: 'private incidents', path: 'incidents', workspace:
 <author><email>csirt@example.org</email><name>EMC CSIRT</name></author>
 XML
 
-e1 = Entry.create(collection: c1, content: <<-XML)
+e1 = Entry.create(collection: c1, content: <<-XML, title: 'Code Red')
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- This example demonstrates a report for a very
      old worm (Code Red) -->

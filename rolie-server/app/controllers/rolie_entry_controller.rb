@@ -20,7 +20,7 @@ class RolieEntryController < ApplicationController
         collection.entries.find_each {|entry|
           xml.entry {
             xml.id_(entry.atomid)
-            xml.title "TODO"
+            xml.title(entry.title)
             xml.link('href' => url_for(:action => :get, :id => entry.id), 'rel' => 'self')
             xml.link('href' => url_for(:action => :get, :id => entry.id), 'rel' => 'alternate')
             xml.published(entry.published.rfc3339)

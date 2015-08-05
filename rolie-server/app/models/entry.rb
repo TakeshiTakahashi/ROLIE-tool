@@ -20,4 +20,14 @@ class Entry < ActiveRecord::Base
     # XXX: 'published' is undefined if multiple reportTimes exist
     parsed.max
   end
+
+  def description
+    ds = iodef.xpath('/iodef:IODEF-Document/iodef:Incident/iodef:Description', 'iodef' => 'urn:ietf:params:xml:ns:iodef-1.0')
+    if d = ds[0]
+      d.child.to_s
+    else
+      nil
+    end
+  end
+
 end

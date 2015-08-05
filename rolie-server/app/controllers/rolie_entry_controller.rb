@@ -26,7 +26,9 @@ class RolieEntryController < ApplicationController
             xml.published(entry.published.rfc3339)
             xml.updated(entry.updated_at.to_datetime.rfc3339)
             xml.category
-            xml.summary "TODO"
+            if summary = entry.summary || entry.description
+              xml.summary(summary)
+            end
           }
         }
       }

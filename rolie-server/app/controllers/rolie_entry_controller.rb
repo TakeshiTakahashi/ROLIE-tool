@@ -14,7 +14,7 @@ class RolieEntryController < ApplicationController
           xml.text collection.title
         }
         xml.updated(DateTime.now.rfc3339)
-        xml.author # TODO
+        xml << collection.author
         xml.link('href' => url_for, 'rel' => 'self')
 
         collection.entries.find_each {|entry|

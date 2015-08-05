@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150730094228) do
+ActiveRecord::Schema.define(version: 20150804130201) do
 
   create_table "collections", force: :cascade do |t|
     t.string   "title"
@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(version: 20150730094228) do
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
     t.string   "path"
+    t.string   "author"
   end
 
   add_index "collections", ["workspace_id"], name: "index_collections_on_workspace_id"

@@ -9,8 +9,13 @@
 ws1 = Workspace.create(title: 'public', path: 'public')
 ws2 = Workspace.create(title: 'private', path: 'private')
 
-c1 = Collection.create(title: 'public incidents', path: 'incidents', workspace: ws1)
-c2 = Collection.create(title: 'private incidents', path: 'incidents', workspace: ws2)
+c1 = Collection.create(title: 'public incidents', path: 'incidents', workspace: ws1, author: <<-XML.chomp)
+<author><email>csirt@example.org</email><name>EMC CSIRT</name></author><author><email>csirt2@example.org</email></author>
+XML
+
+c2 = Collection.create(title: 'private incidents', path: 'incidents', workspace: ws2, author: <<-XML.chomp)
+<author><email>csirt@example.org</email><name>EMC CSIRT</name></author>
+XML
 
 e1 = Entry.create(collection: c1, content: <<-XML)
 <?xml version="1.0" encoding="UTF-8"?>

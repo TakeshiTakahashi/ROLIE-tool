@@ -37,8 +37,25 @@ class RolieEntryController < ApplicationController
   end
 
   def get
+    workspace = Workspace.find_by!(path: params[:workspace])
+    collection = workspace.collections.find_by!(path: params[:collection])
+    entry = collection.entries.find(params[:id])
+
     builder = Nokogiri::XML::Builder.new do |xml|
       xml.entry {
+        xml.id_(entry.atomid)
+        xml.title(entry.title)
+        xml.link('href' => url_for(:action => :get, :id => entry.id), 'rel' => 'self')
+        xml.link('href' => url_for(:action => :get, :id => entry.id), 'rel' => 'alternate')
+        xml.published(entry.published.rfc3339)
+        xml.updated(entry.updated_at.to_datetime.rfc3339)
+        xml.category
+        if summary = entry.summary || entry.description
+          xml.summary(summary)
+        end
+        xml.content('type' => 'application/xml') {
+          xml << entry.iodef_document.to_s
+        }
       }
     end
     render :xml => builder.to_xml(encoding: 'utf-8')

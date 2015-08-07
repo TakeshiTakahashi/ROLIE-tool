@@ -78,11 +78,7 @@ class RolieEntryController < ApplicationController
   end
 
   def delete
-    builder = Nokogiri::XML::Builder.new do |xml|
-      xml.entry {
-      }
-    end
-    render :xml => builder.to_xml(encoding: 'utf-8')
+    render :nothing => true
   end
 
   def search

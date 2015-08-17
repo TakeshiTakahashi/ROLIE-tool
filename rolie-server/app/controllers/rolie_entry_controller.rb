@@ -1,7 +1,6 @@
 class RolieEntryController < ApplicationController
   def index
-    workspace = Workspace.find_by!(path: params[:workspace])
-    collection = workspace.collections.find_by!(path: params[:collection])
+    load_collection
 
     builder = Nokogiri::XML::Builder.new do |xml|
       xml.feed('xmlns' => 'http://www.w3.org/2005/Atom',
@@ -11,13 +10,13 @@ class RolieEntryController < ApplicationController
         xml.generator "ROLIE prototype server"
         xml.id_(url_for)
         xml.title('type' => 'text') {
-          xml.text collection.title
+          xml.text @collection.title
         }
         xml.updated(DateTime.now.rfc3339)
-        xml << collection.author
+        xml << @collection.author
         xml.link('href' => url_for, 'rel' => 'self')
 
-        collection.entries.find_each {|entry|
+        @collection.entries.find_each {|entry|
           xml.entry {
             xml.id_(entry.atomid)
             xml.title(entry.title)
@@ -37,24 +36,22 @@ class RolieEntryController < ApplicationController
   end
 
   def get
-    workspace = Workspace.find_by!(path: params[:workspace])
-    collection = workspace.collections.find_by!(path: params[:collection])
-    entry = collection.entries.find(params[:id])
+    load_entry
 
     builder = Nokogiri::XML::Builder.new do |xml|
       xml.entry {
-        xml.id_(entry.atomid)
-        xml.title(entry.title)
-        xml.link('href' => url_for(:action => :get, :id => entry.id), 'rel' => 'self')
-        xml.link('href' => url_for(:action => :get, :id => entry.id), 'rel' => 'alternate')
-        xml.published(entry.published.rfc3339)
-        xml.updated(entry.updated_at.to_datetime.rfc3339)
+        xml.id_(@entry.atomid)
+        xml.title(@entry.title)
+        xml.link('href' => url_for(:action => :get, :id => @entry.id), 'rel' => 'self')
+        xml.link('href' => url_for(:action => :get, :id => @entry.id), 'rel' => 'alternate')
+        xml.published(@entry.published.rfc3339)
+        xml.updated(@entry.updated_at.to_datetime.rfc3339)
         xml.category
-        if summary = entry.summary || entry.description
+        if summary = @entry.summary || @entry.description
           xml.summary(summary)
         end
         xml.content('type' => 'application/xml') {
-          xml << entry.iodef_document.to_s
+          xml << @entry.iodef_document.to_s
         }
       }
     end
@@ -78,9 +75,23 @@ class RolieEntryController < ApplicationController
   end
 
   def delete
+    load_entry
+
     render :nothing => true
   end
 
   def search
+  end
+
+  private
+
+  def load_collection
+    @workspace = Workspace.find_by!(path: params[:workspace])
+    @collection = @workspace.collections.find_by!(path: params[:collection])
+  end
+
+  def load_entry
+    load_collection
+    @entry = @collection.entries.find(params[:id])
   end
 end

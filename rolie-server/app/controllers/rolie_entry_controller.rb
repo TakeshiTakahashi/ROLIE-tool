@@ -59,6 +59,9 @@ class RolieEntryController < ApplicationController
   end
 
   def put
+    doc = parse_body
+    load_entry
+
     builder = Nokogiri::XML::Builder.new do |xml|
       xml.entry {
       }
@@ -67,6 +70,9 @@ class RolieEntryController < ApplicationController
   end
 
   def post
+    doc = parse_body
+    load_collection
+
     builder = Nokogiri::XML::Builder.new do |xml|
       xml.entry {
       }
@@ -93,5 +99,11 @@ class RolieEntryController < ApplicationController
   def load_entry
     load_collection
     @entry = @collection.entries.find(params[:id])
+  end
+
+  def parse_body
+    doc = Nokogiri::XML(request.body) do |config|
+      config.options = Nokogiri::XML::ParseOptions::STRICT | Nokogiri::XML::ParseOptions::NOBLANKS | Nokogiri::XML::ParseOptions::NONET
+    end
   end
 end

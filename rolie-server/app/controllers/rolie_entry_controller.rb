@@ -62,6 +62,8 @@ class RolieEntryController < ApplicationController
     doc = parse_body
     load_entry
 
+    @entry.xml = doc
+
     builder = Nokogiri::XML::Builder.new do |xml|
       xml.entry {
       }

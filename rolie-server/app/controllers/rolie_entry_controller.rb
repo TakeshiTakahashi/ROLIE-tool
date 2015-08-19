@@ -63,6 +63,7 @@ class RolieEntryController < ApplicationController
     load_entry
 
     @entry.xml = doc
+    @entry.save!
 
     builder = Nokogiri::XML::Builder.new do |xml|
       xml.entry {
@@ -74,6 +75,10 @@ class RolieEntryController < ApplicationController
   def post
     doc = parse_body
     load_collection
+
+    entry = Entry.new
+    entry.xml = doc
+    entry.save!
 
     builder = Nokogiri::XML::Builder.new do |xml|
       xml.entry {

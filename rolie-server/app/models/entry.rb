@@ -42,6 +42,14 @@ class Entry < ActiveRecord::Base
     iodef.add_child(iodef_elm)
     @iodef = iodef
     self.content = iodef.to_xml
+
+    title = xml.xpath('/atom:entry/atom:title/text()',
+                      'atom' => 'http://www.w3.org/2005/Atom')
+    self.title = title.first
+
+    links = xml.xpath('/atom:entry/atom:link',
+                      'atom' => 'http://www.w3.org/2005/Atom')
+    self.links = links.to_xml
   end
 
 end

@@ -5,6 +5,9 @@
   <published>2001-09-13T23:19:24+00:00</published>
   <category/>
   <summary>Host sending out Code Red probes</summary>
+  <link href="http://www.example.org/csirt/private/incidents/123456/relationships/indicators" rel="indicators"/>
+  <link href="http://www.example.org/csirt/private/incidents/1234456/relationships/history" rel="history"/>
+  <link href="http://www.example.org/csirt/private/incidents/1234456/relationships/campaign" rel="campaign"/>
   <content type="application/xml">
     <IODEF-Document xmlns="urn:ietf:params:xml:ns:iodef-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.00" lang="en" xsi:schemaLocation="urn:ietf:params:xml:schema:iodef-1.0">
       <Incident purpose="reporting">

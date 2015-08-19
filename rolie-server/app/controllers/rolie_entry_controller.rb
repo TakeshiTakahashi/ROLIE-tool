@@ -102,7 +102,7 @@ class RolieEntryController < ApplicationController
           xml.summary(summary)
         end
         xml.content('type' => 'application/xml') {
-          xml << @entry.iodef_document.to_s
+          xml.parent.add_child @entry.iodef_document.dup
         }
       }
     end

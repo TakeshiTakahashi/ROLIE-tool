@@ -37,25 +37,7 @@ class RolieEntryController < ApplicationController
 
   def get
     load_entry
-
-    builder = Nokogiri::XML::Builder.new do |xml|
-      xml.entry {
-        xml.id_(@entry.atomid)
-        xml.title(@entry.title)
-        xml.link('href' => url_for(:action => :get, :id => @entry.id), 'rel' => 'self')
-        xml.link('href' => url_for(:action => :get, :id => @entry.id), 'rel' => 'alternate')
-        xml.published(@entry.published.rfc3339)
-        xml.updated(@entry.updated_at.to_datetime.rfc3339)
-        xml.category
-        if summary = @entry.summary || @entry.description
-          xml.summary(summary)
-        end
-        xml.content('type' => 'application/xml') {
-          xml << @entry.iodef_document.to_s
-        }
-      }
-    end
-    render :xml => builder.to_xml(encoding: 'utf-8')
+    render_entry
   end
 
   def put
@@ -65,26 +47,18 @@ class RolieEntryController < ApplicationController
     @entry.xml = doc
     @entry.save!
 
-    builder = Nokogiri::XML::Builder.new do |xml|
-      xml.entry {
-      }
-    end
-    render :xml => builder.to_xml(encoding: 'utf-8')
+    render_entry
   end
 
   def post
     doc = parse_body
     load_collection
 
-    entry = Entry.new
-    entry.xml = doc
-    entry.save!
+    @entry = Entry.new
+    @entry.xml = doc
+    @entry.save!
 
-    builder = Nokogiri::XML::Builder.new do |xml|
-      xml.entry {
-      }
-    end
-    render :xml => builder.to_xml(encoding: 'utf-8')
+    render_entry
   end
 
   def delete
@@ -112,5 +86,26 @@ class RolieEntryController < ApplicationController
     doc = Nokogiri::XML(request.body) do |config|
       config.options = Nokogiri::XML::ParseOptions::STRICT | Nokogiri::XML::ParseOptions::NOBLANKS | Nokogiri::XML::ParseOptions::NONET
     end
+  end
+
+  def render_entry
+    builder = Nokogiri::XML::Builder.new do |xml|
+      xml.entry {
+        xml.id_(@entry.atomid)
+        xml.title(@entry.title)
+        xml.link('href' => url_for(:action => :get, :id => @entry.id), 'rel' => 'self')
+        xml.link('href' => url_for(:action => :get, :id => @entry.id), 'rel' => 'alternate')
+        xml.published(@entry.published.rfc3339)
+        xml.updated(@entry.updated_at.to_datetime.rfc3339)
+        xml.category
+        if summary = @entry.summary || @entry.description
+          xml.summary(summary)
+        end
+        xml.content('type' => 'application/xml') {
+          xml << @entry.iodef_document.to_s
+        }
+      }
+    end
+    render :xml => builder.to_xml(encoding: 'utf-8')
   end
 end

@@ -64,7 +64,7 @@ class RolieEntryController < ApplicationController
 
   def delete
     load_entry
-
+    @entry.delete!
     render :nothing => true
   end
 

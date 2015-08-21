@@ -90,12 +90,13 @@ class RolieEntryController < ApplicationController
   end
 
   def render_entry
+    self_url = url_for(:action => :get, :id => @entry.id)
     builder = Nokogiri::XML::Builder.new do |xml|
       xml.entry {
-        xml.id_(@entry.atomid)
+        xml.id_(self_url)
         xml.title(@entry.title)
-        xml.link('href' => url_for(:action => :get, :id => @entry.id), 'rel' => 'self')
-        xml.link('href' => url_for(:action => :get, :id => @entry.id), 'rel' => 'alternate')
+        xml.link('href' => self_url, 'rel' => 'self')
+        xml.link('href' => self_url, 'rel' => 'alternate')
         xml.published(@entry.published.rfc3339)
         xml.updated(@entry.updated_at.to_datetime.rfc3339)
         xml.category
@@ -103,7 +104,14 @@ class RolieEntryController < ApplicationController
           xml.summary(summary)
         end
         xml.content('type' => 'application/xml') {
-          xml.parent.add_child @entry.iodef_document.dup
+          iodef = @entry.iodef_document.dup
+          iid = iodef.xpath('.//iodef:IncidentID',
+                            'iodef' => 'urn:ietf:params:xml:ns:iodef-1.0')
+          iid.each {|e|
+            e['name'] = url_for(:action => :index)
+            e.children = e.document.create_text_node(@entry.id.to_s)
+          }
+          xml.parent.add_child iodef
         }
       }
     end

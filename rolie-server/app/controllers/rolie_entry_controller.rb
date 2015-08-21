@@ -55,6 +55,7 @@ class RolieEntryController < ApplicationController
     load_collection
 
     @entry = Entry.new
+    @entry.collection = @collection
     @entry.xml = doc
     @entry.save!
 

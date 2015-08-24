@@ -17,11 +17,12 @@ class RolieEntryController < ApplicationController
         xml.link('href' => url_for, 'rel' => 'self')
 
         @collection.entries.find_each {|entry|
+          self_url = url_for(:action => :get, :id => entry.id)
           xml.entry {
-            xml.id_(entry.atomid)
+            xml.id_(self_url)
             xml.title(entry.title)
-            xml.link('href' => url_for(:action => :get, :id => entry.id), 'rel' => 'self')
-            xml.link('href' => url_for(:action => :get, :id => entry.id), 'rel' => 'alternate')
+            xml.link('href' => self_url, 'rel' => 'self')
+            xml.link('href' => self_url, 'rel' => 'alternate')
             xml.published(entry.published.rfc3339)
             xml.updated(entry.updated_at.to_datetime.rfc3339)
             xml.category

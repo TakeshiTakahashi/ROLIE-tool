@@ -11,8 +11,21 @@ class RolieEntryControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test "should not put invalid xml" do
+    xml = ''
+    put :put, xml,  :workspace => 'public', :collection => 'incidents', :id => 1
+    assert_response 400
+  end
+
+  test "should not put invalid atom entry" do
+    xml = '<?xml version="1.0"?><entry></entry>'
+    put :put, xml,  :workspace => 'public', :collection => 'incidents', :id => 1
+    assert_response 400
+  end
+
   test "should put" do
-    put :put, :workspace => 'public', :collection => 'incidents', :id => 1
+    xml = '<?xml version="1.0"?><hoge></hoge>'
+    put :put, xml,  :workspace => 'public', :collection => 'incidents', :id => 1
     assert_response :success
   end
 

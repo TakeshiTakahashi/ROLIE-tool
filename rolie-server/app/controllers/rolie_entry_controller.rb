@@ -1,4 +1,8 @@
 class RolieEntryController < ApplicationController
+  rescue_from Nokogiri::XML::SyntaxError do |e|
+    render plain: e.to_s, status: 400
+  end
+
   def index
     load_collection
 

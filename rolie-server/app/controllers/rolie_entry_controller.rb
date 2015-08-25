@@ -92,6 +92,12 @@ class RolieEntryController < ApplicationController
     doc = Nokogiri::XML(request.body) do |config|
       config.options = Nokogiri::XML::ParseOptions::STRICT | Nokogiri::XML::ParseOptions::NOBLANKS | Nokogiri::XML::ParseOptions::NONET
     end
+    error = SCHEMA_Atom.validate(doc)
+    error.each {|e|
+      # report the first error
+      raise e
+    }
+    doc
   end
 
   def render_entry

@@ -35,6 +35,9 @@ class Entry < ActiveRecord::Base
                           'atom' => 'http://www.w3.org/2005/Atom')
     iodef = Nokogiri::XML::Document.new
     iodef.add_child(iodef_elm)
+    SCHEMA_iodef.validate(iodef).each {|e|
+      raise e
+    }
     # clear IncidentID
     # TODO: rename to AlternativeID?
     iid = iodef.xpath('/iodef:IODEF-Document/iodef:Incident/iodef:IncidentID',

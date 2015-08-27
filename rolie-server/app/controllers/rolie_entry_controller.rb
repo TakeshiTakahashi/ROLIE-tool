@@ -27,6 +27,7 @@ class RolieEntryController < ApplicationController
             xml.title(entry.title)
             xml.link('href' => self_url, 'rel' => 'self')
             xml.link('href' => self_url, 'rel' => 'alternate')
+            xml << entry.links
             xml.published(entry.published.rfc3339)
             xml.updated(entry.updated_at.to_datetime.rfc3339)
             xml.category
@@ -109,6 +110,7 @@ class RolieEntryController < ApplicationController
         xml.title(@entry.title)
         xml.link('href' => self_url, 'rel' => 'self')
         xml.link('href' => self_url, 'rel' => 'alternate')
+        xml << @entry.links
         xml.published(@entry.published.rfc3339)
         xml.updated(@entry.updated_at.to_datetime.rfc3339)
         xml.category

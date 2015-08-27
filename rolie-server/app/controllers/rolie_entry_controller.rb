@@ -64,12 +64,13 @@ class RolieEntryController < ApplicationController
     @entry.xml = doc
     @entry.save!
 
-    render_entry
+    response.header['Location'] = url_for(:action => :get, :id => @entry.id)
+    render_entry(201)
   end
 
   def delete
     load_entry
-    @entry.delete!
+    @entry.delete
     render :nothing => true
   end
 
@@ -100,7 +101,7 @@ class RolieEntryController < ApplicationController
     doc
   end
 
-  def render_entry
+  def render_entry(status = 200)
     self_url = url_for(:action => :get, :id => @entry.id)
     builder = Nokogiri::XML::Builder.new do |xml|
       xml.entry {
@@ -126,6 +127,6 @@ class RolieEntryController < ApplicationController
         }
       }
     end
-    render :xml => builder.to_xml(encoding: 'utf-8')
+    render :xml => builder.to_xml(encoding: 'utf-8'), :status => status
   end
 end

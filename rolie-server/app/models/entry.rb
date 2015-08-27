@@ -30,8 +30,7 @@ class Entry < ActiveRecord::Base
   end
 
   def xml=(xml)
-    iodef_elm = xml.xpath('/atom:entry/atom:content/iodef:IODEF-Document',
-                          'iodef' => 'urn:ietf:params:xml:ns:iodef-1.0',
+    iodef_elm = xml.xpath('/atom:entry/atom:content/*',
                           'atom' => 'http://www.w3.org/2005/Atom')
     iodef = Nokogiri::XML::Document.new
     iodef.add_child(iodef_elm)

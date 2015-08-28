@@ -7,5 +7,7 @@ Rails.application.routes.draw do
   post   'csirt/:workspace/:collection',     to: 'rolie_entry#post'
   put    'csirt/:workspace/:collection/:id', to: 'rolie_entry#put'
   delete 'csirt/:workspace/:collection/:id', to: 'rolie_entry#delete'
-  # TODO: search
+
+  get    'searchspec/:workspace/:collection', to: 'rolie_entry#search_spec'
+
 end

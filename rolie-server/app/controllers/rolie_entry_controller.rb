@@ -75,7 +75,28 @@ class RolieEntryController < ApplicationController
     render :nothing => true
   end
 
-  def search
+  def search_spec
+    load_collection
+    builder = Nokogiri::XML::Builder.new do |xml|
+      xml.OpenSearchDescription('xmlns' => 'http://a9.com/-/spec/opensearch/1.1/') {
+        xml.ShortName('CSIRT search')
+        xml.Description('Cyber security information sharing consortium search interface')
+        xml.Tags('example csirt indicator search')
+        xml.Contact('admin@example.org')
+        xml.Url('type' => 'application/opensearchdescription+xml',
+                'rel' => 'self',
+                'template' => url_for)
+        xml.Url('type' => 'application/atom+xml',
+                'rel' => 'results',
+                'template' => url_for(:action => :index, :q => disable_url_encode('{searchTerms}')))
+        xml.LongName 'www.example.org CSIRT search'
+        xml.Query 'role' => "example", 'searchTerms' => "incident"
+        xml.Language 'en-us'
+        xml.OutputEncoding 'UTF-8'
+        xml.InputEncoding 'UTF-8'
+      }
+    end
+    render :xml => builder.to_xml(encoding: 'utf-8')
   end
 
   private
@@ -130,5 +151,13 @@ class RolieEntryController < ApplicationController
       }
     end
     render :xml => builder.to_xml(encoding: 'utf-8'), :status => status
+  end
+
+  def disable_url_encode(s)
+    s = s.dup
+    def s.to_query(key)
+      "#{CGI.escape(key.to_param)}=#{to_param.to_s}"
+    end
+    s
   end
 end

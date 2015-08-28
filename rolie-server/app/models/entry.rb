@@ -1,6 +1,11 @@
 class Entry < ActiveRecord::Base
   belongs_to :collection
 
+  def self.like(s)
+    q = ActiveRecord::Base.sanitize_sql_like(s)
+    where('content LIKE ?', "%#{q}%")
+  end
+
   def iodef
     @iodef ||= Nokogiri::XML(self.content)
   end

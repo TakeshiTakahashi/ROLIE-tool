@@ -5,6 +5,7 @@ class RolieEntryController < ApplicationController
 
   def index
     load_collection
+    q = params[:q]
 
     builder = Nokogiri::XML::Builder.new do |xml|
       xml.feed('xmlns' => 'http://www.w3.org/2005/Atom',
@@ -20,7 +21,11 @@ class RolieEntryController < ApplicationController
         xml << @collection.author
         xml.link('href' => url_for, 'rel' => 'self')
 
-        @collection.entries.find_each {|entry|
+        entries = @collection.entries
+        unless q.blank?
+          entries = entries.like(q)
+        end
+        entries.find_each {|entry|
           self_url = url_for(:action => :get, :id => entry.id)
           xml.entry {
             xml.id_(self_url)

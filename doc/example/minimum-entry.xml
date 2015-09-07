@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<entry xmlns="http://www.w3.org/2005/Atom">
+  <id>test/12345</id>
+  <title>test</title>
+  <published>2001-09-13T23:19:24+00:00</published>
+  <updated>2015-08-25T11:01:59+00:00</updated>
+  <summary>test</summary>
+  <content type="application/xml">
+    <IODEF-Document xmlns="urn:ietf:params:xml:ns:iodef-1.0" lang="en">
+      <Incident purpose="reporting">
+        <IncidentID name="test">12345</IncidentID>
+        <ReportTime>2001-09-13T23:19:24+00:00</ReportTime>
+        <Assessment>
+          <Impact completion="failed" type="admin"/>
+        </Assessment>
+        <Contact role="creator" type="organization">
+        </Contact>
+      </Incident>
+    </IODEF-Document>
+  </content>
+</entry>

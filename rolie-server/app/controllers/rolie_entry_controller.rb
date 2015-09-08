@@ -20,6 +20,10 @@ class RolieEntryController < ApplicationController
         xml.updated(DateTime.now.rfc3339)
         xml << @collection.author
         xml.link('href' => url_for, 'rel' => 'self')
+        xml.link('href' => url_for(:action => :search_spec),
+                 'rel' => 'search',
+                 'type' => 'application/opensearchdescription+xml',
+                 'title' => 'CSIRT search facility')
 
         entries = @collection.entries
         unless q.blank?

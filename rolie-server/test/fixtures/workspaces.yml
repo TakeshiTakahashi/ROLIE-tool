@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+public:
+  title: public
+  path: public
+
+private:
+  title: private
+  path: private

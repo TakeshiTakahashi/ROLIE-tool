@@ -1,0 +1,28 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+entry_1:
+  id: 1
+  collection: public_incidents
+  title: Code Red
+  links:
+  content:
+    <?xml version="1.0" encoding="UTF-8"?>
+    <IODEF-Document lang="en"
+       xmlns="urn:ietf:params:xml:ns:iodef-1.0"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="urn:ietf:params:xml:schema:iodef-1.0">
+      <Incident purpose="reporting">
+         <IncidentID name=""></IncidentID>
+         <ReportTime>2001-09-13T23:19:24+00:00</ReportTime>
+         <Description>Host sending out Code Red probes</Description>
+         <!-- An administrative privilege was attempted, but failed -->
+         <Assessment>
+           <Impact completion="failed" type="admin"/>
+         </Assessment>
+         <Contact role="creator" type="organization">
+           <ContactName>Example.com CSIRT</ContactName>
+           <RegistryHandle registry="arin">example-com</RegistryHandle>
+           <Email>contact@csirt.example.com</Email>
+         </Contact>
+       </Incident>
+    </IODEF-Document>

@@ -1,6 +1,6 @@
-# ¥»¥Ã¥È¥¢¥Ã¥×
+# ã‚»ãƒƒãƒˆã‚¢ãƒƒãƒ—
 
-* ÄÌ¾ï¤ÎRails¤ÈÆ±ÍÍ
+* é€šå¸¸ã®Railsã¨åŒæ§˜
 
 ```
 $ ruby --version
@@ -10,7 +10,7 @@ ruby 2.2.1p85 (2015-02-26 revision 49769) [i686-linux]
 $ cd rolie-server
 $ bundle install
 Using rake 10.4.2
-Î¬
+ç•¥
 Bundle complete! 13 Gemfile dependencies, 54 gems now installed.
 Use `bundle show [gemname]` to see where a bundled gem is installed.
 ```
@@ -19,7 +19,7 @@ $ rake db:setup
 
 ```
 
-* ¥µ¡¼¥Ğ¡¼¤Îµ¯Æ°
+* ã‚µãƒ¼ãƒãƒ¼ã®èµ·å‹•
 
 ```
 $ rails s
@@ -33,9 +33,9 @@ Unimplemented block at relaxng.c:3822
 [2015-09-01 20:43:48] INFO  WEBrick::HTTPServer#start: pid=17872 port=3000
 ```
 
-# ¼Â¹ÔÎã
+# å®Ÿè¡Œä¾‹
 
-## ¥È¥Ã¥×¥Ú¡¼¥¸¤Ë¥¢¥¯¥»¥¹
+## ãƒˆãƒƒãƒ—ãƒšãƒ¼ã‚¸ã«ã‚¢ã‚¯ã‚»ã‚¹
 
 ```
 $ curl http://localhost:3000
@@ -62,9 +62,9 @@ $ curl http://localhost:3000
 </html>
 ```
 
-headÆâ¤Î¥ê¥ó¥¯ <link rel="introspection" type="application/atomsvc+xml" title="Atom Publishing Protocol Service Document" href="http://localhost:3000/csirt/svcdoc.xml" /> ¤ò¤¿¤É¤ë
+headå†…ã®ãƒªãƒ³ã‚¯ <link rel="introspection" type="application/atomsvc+xml" title="Atom Publishing Protocol Service Document" href="http://localhost:3000/csirt/svcdoc.xml" /> ã‚’ãŸã©ã‚‹
 
-## ¥µ¡¼¥Ó¥¹ÄêµÁ¥Õ¥¡¥¤¥ë¤ò¼èÆÀ
+## ã‚µãƒ¼ãƒ“ã‚¹å®šç¾©ãƒ•ã‚¡ã‚¤ãƒ«ã‚’å–å¾—
 
 ```
 $ curl http://localhost:3000/csirt/svcdoc.xml
@@ -87,9 +87,9 @@ $ curl http://localhost:3000/csirt/svcdoc.xml
 </service>
 ```
 
-## ¥³¥ì¥¯¥·¥ç¥ó¤Îfeed¤ò¼èÆÀ
+## ã‚³ãƒ¬ã‚¯ã‚·ãƒ§ãƒ³ã®feedã‚’å–å¾—
 
-ºÇ½é¤Ê¤Î¤Çfeed¤Ï¶õ
+æœ€åˆãªã®ã§feedã¯ç©º
 
 ```
 $ curl http://localhost:3000/csirt/public/incidents
@@ -107,12 +107,13 @@ $ curl http://localhost:3000/csirt/public/incidents
     <email>csirt2@example.org</email>
   </author>
   <link href="http://localhost:3000/csirt/public/incidents" rel="self"/>
+  <link href="http://localhost:3000/searchspec/public/incidents" rel="search" type="application/opensearchdescription+xml" title="CSIRT search facility"/>
 </feed>
 ```
 
-## ¥¨¥ó¥È¥ê¡¼¤òÄÉ²Ã
+## ã‚¨ãƒ³ãƒˆãƒªãƒ¼ã‚’è¿½åŠ 
 
-doc/example/minimum-entry.xml ¤òÄÉ²Ã¤¹¤ë
+doc/example/minimum-entry.xml ã‚’è¿½åŠ ã™ã‚‹
 
 ```
 $ curl -D - -X POST http://localhost:3000/csirt/public/incidents --data-binary @minimum-entry.xml 
@@ -157,11 +158,11 @@ Set-Cookie: request_method=POST; path=/
 </entry>
 ```
 
-* 201 Created ¤¬ÊÖ¤ë
-* Location ¥Ø¥Ã¥À¤Ë¿·¤·¤¤ URL ¤¬ÊÖ¤ë
-* ¸µ¤Î¥É¥­¥å¥á¥ó¥È¤ÎÃæ¤Ç¡¢id Í×ÁÇ¤È IncidentID Í×ÁÇ¤Ï¿·¤·¤¤¤â¤Î¤Ë¹¹¿·¤µ¤ì¤ë
+* 201 Created ãŒè¿”ã‚‹
+* Location ãƒ˜ãƒƒãƒ€ã«æ–°ã—ã„ URL ãŒè¿”ã‚‹
+* å…ƒã®ãƒ‰ã‚­ãƒ¥ãƒ¡ãƒ³ãƒˆã®ä¸­ã§ã€id è¦ç´ ã¨ IncidentID è¦ç´ ã¯æ–°ã—ã„ã‚‚ã®ã«æ›´æ–°ã•ã‚Œã‚‹
 
-## ¹¹¿·¤µ¤ì¤¿feed¤ò¼èÆÀ
+## æ›´æ–°ã•ã‚ŒãŸfeedã‚’å–å¾—
 
 ```
 $ curl http://localhost:3000/csirt/public/incidents
@@ -179,6 +180,7 @@ $ curl http://localhost:3000/csirt/public/incidents
     <email>csirt2@example.org</email>
   </author>
   <link href="http://localhost:3000/csirt/public/incidents" rel="self"/>
+  <link href="http://localhost:3000/searchspec/public/incidents" rel="search" type="application/opensearchdescription+xml" title="CSIRT search facility"/>
   <entry>
     <id>http://localhost:3000/csirt/public/incidents/1</id>
     <title>test</title>
@@ -191,7 +193,7 @@ $ curl http://localhost:3000/csirt/public/incidents
 </feed>
 ```
 
-## ¥¨¥ó¥È¥ê¡¼¤ò¼èÆÀ
+## ã‚¨ãƒ³ãƒˆãƒªãƒ¼ã‚’å–å¾—
 
 ```
 $ curl http://localhost:3000/csirt/public/incidents/1
@@ -220,7 +222,7 @@ $ curl http://localhost:3000/csirt/public/incidents/1
 </entry>
 ```
 
-# ´ûÂ¸¥¨¥ó¥È¥ê¡¼¤Ë¾å½ñ¤­
+## æ—¢å­˜ã‚¨ãƒ³ãƒˆãƒªãƒ¼ã«ä¸Šæ›¸ã
 
 ```
 $ curl -X PUT http://localhost:3000/csirt/public/incidents/1 --data-binary @codered-entry.xml 
@@ -302,10 +304,11 @@ $ curl -X PUT http://localhost:3000/csirt/public/incidents/1 --data-binary @code
 </entry>
 ```
 
-# ¥¨¥ó¥È¥ê¡¼¤Îºï½ü
+## ã‚¨ãƒ³ãƒˆãƒªãƒ¼ã®å‰Šé™¤
 
 ```
-$ curl -D - -X DELETE http://localhost:3000/csirt/public/incidents/1HTTP/1.1 200 OK 
+$ curl -D - -X DELETE http://localhost:3000/csirt/public/incidents/1
+HTTP/1.1 200 OK 
 X-Frame-Options: SAMEORIGIN
 X-Xss-Protection: 1; mode=block
 X-Content-Type-Options: nosniff
@@ -320,3 +323,46 @@ Connection: Keep-Alive
 Set-Cookie: request_method=DELETE; path=/
 
 ```
+
+## OpenSearch æ¤œç´¢ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆã®å–å¾—
+
+```
+$ curl http://localhost:3000/searchspec/public/incidents
+<?xml version="1.0" encoding="utf-8"?>
+<OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/">
+  <ShortName>CSIRT search</ShortName>
+  <Description>Cyber security information sharing consortium search interface</Description>
+  <Tags>example csirt indicator search</Tags>
+  <Contact>admin@example.org</Contact>
+  <Url type="application/opensearchdescription+xml" rel="self" template="http://localhost:3000/searchspec/public/incidents"/>
+  <Url type="application/atom+xml" rel="results" template="http://localhost:3000/csirt/public/incidents?q={searchTerms}"/>
+  <LongName>www.example.org CSIRT search</LongName>
+  <Query role="example" searchTerms="incident"/>
+  <Language>en-us</Language>
+  <OutputEncoding>UTF-8</OutputEncoding>
+  <InputEncoding>UTF-8</InputEncoding>
+</OpenSearchDescription>
+```
+
+## æ¤œç´¢
+
+```
+$ curl http://localhost:3000/csirt/public/incidents?q=foo
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.w3.org/2005/Atom file:/C:/schemas/atom.xsd urn:ietf:params:xml:ns:iodef-1.0 file:/C:/schemas/iodef-1.0.xsd">
+  <generator>ROLIE prototype server</generator>
+  <id>http://localhost:3000/csirt/public/incidents</id>
+  <title type="text">public incidents</title>
+  <updated>2015-09-08T20:42:00+09:00</updated>
+  <author>
+    <email>csirt@example.org</email>
+    <name>EMC CSIRT</name>
+  </author>
+  <author>
+    <email>csirt2@example.org</email>
+  </author>
+  <link href="http://localhost:3000/csirt/public/incidents" rel="self"/>
+  <link href="http://localhost:3000/searchspec/public/incidents" rel="search" type="application/opensearchdescription+xml" title="CSIRT search facility"/>
+</feed>
+```
+

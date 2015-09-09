@@ -1,4 +1,9 @@
-# セットアップ
+# Rolieサーバーマニュアル
+
+* (株)レピダム 菊池正史
+* 2015/09/09
+
+## セットアップ
 
 * 通常のRailsと同様
 
@@ -33,9 +38,9 @@ Unimplemented block at relaxng.c:3822
 [2015-09-01 20:43:48] INFO  WEBrick::HTTPServer#start: pid=17872 port=3000
 ```
 
-# 実行例
+## 実行例
 
-## トップページにアクセス
+### トップページにアクセス
 
 ```
 $ curl http://localhost:3000
@@ -64,7 +69,7 @@ $ curl http://localhost:3000
 
 head内のリンク <link rel="introspection" type="application/atomsvc+xml" title="Atom Publishing Protocol Service Document" href="http://localhost:3000/csirt/svcdoc.xml" /> をたどる
 
-## サービス定義ファイルを取得
+### サービス定義ファイルを取得
 
 ```
 $ curl http://localhost:3000/csirt/svcdoc.xml
@@ -87,7 +92,7 @@ $ curl http://localhost:3000/csirt/svcdoc.xml
 </service>
 ```
 
-## コレクションのfeedを取得
+### コレクションのfeedを取得
 
 最初なのでfeedは空
 
@@ -111,7 +116,7 @@ $ curl http://localhost:3000/csirt/public/incidents
 </feed>
 ```
 
-## エントリーを追加
+### エントリーを追加
 
 doc/example/minimum-entry.xml を追加する
 
@@ -162,7 +167,7 @@ Set-Cookie: request_method=POST; path=/
 * Location ヘッダに新しい URL が返る
 * 元のドキュメントの中で、id 要素と IncidentID 要素は新しいものに更新される
 
-## 更新されたfeedを取得
+### 更新されたfeedを取得
 
 ```
 $ curl http://localhost:3000/csirt/public/incidents
@@ -193,7 +198,7 @@ $ curl http://localhost:3000/csirt/public/incidents
 </feed>
 ```
 
-## エントリーを取得
+### エントリーを取得
 
 ```
 $ curl http://localhost:3000/csirt/public/incidents/1
@@ -222,7 +227,7 @@ $ curl http://localhost:3000/csirt/public/incidents/1
 </entry>
 ```
 
-## 既存エントリーに上書き
+### 既存エントリーに上書き
 
 ```
 $ curl -X PUT http://localhost:3000/csirt/public/incidents/1 --data-binary @codered-entry.xml 
@@ -304,7 +309,7 @@ $ curl -X PUT http://localhost:3000/csirt/public/incidents/1 --data-binary @code
 </entry>
 ```
 
-## エントリーの削除
+### エントリーの削除
 
 ```
 $ curl -D - -X DELETE http://localhost:3000/csirt/public/incidents/1
@@ -324,7 +329,7 @@ Set-Cookie: request_method=DELETE; path=/
 
 ```
 
-## OpenSearch 検索フォーマットの取得
+### OpenSearch 検索フォーマットの取得
 
 ```
 $ curl http://localhost:3000/searchspec/public/incidents
@@ -344,7 +349,7 @@ $ curl http://localhost:3000/searchspec/public/incidents
 </OpenSearchDescription>
 ```
 
-## 検索
+### 検索
 
 ```
 $ curl http://localhost:3000/csirt/public/incidents?q=foo

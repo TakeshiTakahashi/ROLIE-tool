@@ -1,0 +1,27 @@
+* Service Discovery
+  http://localhost:3000/
+  view source
+  Service Document
+
+* Atom Feed
+  copy and paste URL public/incidents
+  view source
+
+* Entry Feed
+  click Code Red
+
+* POST
+  curl -D - -X POST http://localhost:3000/csirt/public/incidents --data-binary @minimum-entry.xml
+  back to feed, reload
+
+* Search
+  http://localhost:3000/searchspec/public/incidents
+  view source
+  http://localhost:3000/csirt/public/incidents?q=red
+
+* Setup
+  rake db:drop
+  rake db:setup
+  cd ../doc/examples
+  curl -D - -X POST http://localhost:3000/csirt/public/incidents --data-binary @codered-entry.xml
+
